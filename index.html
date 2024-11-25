@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpStoppa 3X Rust Server</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- For icons -->
     <style>
         /* Basic Reset */
         * {
@@ -13,228 +12,129 @@
             box-sizing: border-box;
         }
 
-        /* Body and Background */
         body {
             font-family: 'Arial', sans-serif;
-            color: #f2f2f2;
-            background-image: url('images/download.png'); /* Make sure this matches the file name */
+            background-image: url('images/download.png');
             background-size: cover;
             background-position: center;
-            height: 100vh;
+            color: white;
             overflow-x: hidden;
-            padding-top: 50px;
         }
 
-        /* Header Section */
-        header {
-            text-align: center;
-            padding: 30px 20px;
-            background-color: rgba(0, 0, 0, 0.6);
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-            position: relative;
-            z-index: 1;
-        }
-
-        header h1 {
-            font-size: 3em;
-            color: #f2a900; /* Rusty yellow-orange */
-            font-weight: bold;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
-        }
-
-        /* Logo */
-        .logo {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            max-width: 120px;
-            height: auto;
-            border-radius: 10px;
-            z-index: 10;
-        }
-
-        /* Navigation (Tabs) */
         nav {
             display: flex;
             justify-content: center;
+            padding: 20px;
             background: linear-gradient(135deg, #ff7a00, #ffbb33);
-            padding: 10px;
-            box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
-            border-radius: 10px;
-            margin-top: 20px;
-            transition: all 0.3s ease;
         }
 
         nav a {
-            color: white;
-            padding: 15px 30px;
             text-decoration: none;
-            font-size: 1.3em;
-            margin: 0 15px;
-            transition: all 0.3s ease;
+            color: white;
+            font-weight: bold;
+            margin: 0 20px;
+            padding: 10px 20px;
             border-radius: 5px;
+            transition: all 0.3s;
         }
 
-        nav a:hover, nav a.active {
-            background-color: transparent;
-            color: #ffbb33;
-            transform: scale(1.1);
+        nav a:hover {
+            background-color: rgba(0, 0, 0, 0.5);
         }
 
-        /* Hide non-active tabs */
-        .tab-content {
-            display: none;
+        .content {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 30px auto;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
         }
 
-        .tab-content.active {
+        .content img {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 10px;
+            margin: 20px auto;
             display: block;
         }
 
-        /* Main Content Section */
-        .content {
-            padding: 60px 40px;
-            background-color: rgba(0, 0, 0, 0.7);
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 6px rgba(0,0,0,0.6);
-            animation: fadeIn 0.5s ease-in;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Footer Section */
         footer {
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
+            background: rgba(0, 0, 0, 0.8);
             text-align: center;
-            padding: 15px;
+            padding: 20px;
             position: fixed;
             bottom: 0;
             width: 100%;
-            box-shadow: 0px -2px 4px rgba(0,0,0,0.6);
-        }
-
-        footer a {
-            color: #f2a900;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        /* Button for Discord */
-        .button {
-            background-color: #f2a900;
-            padding: 18px 25px;
-            font-size: 1.3em;
-            text-decoration: none;
-            color: white;
-            border-radius: 5px;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .button:hover {
-            background-color: #d88e00;
-            transform: scale(1.05);
-        }
-
-        /* Map Image Section */
-        .map-image {
-            width: 100%;
-            max-width: 800px;
-            margin-top: 30px;
-            border-radius: 10px;
-        }
-
-        /* Fade-in animation */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
         }
     </style>
 </head>
 <body>
-
-    <!-- Logo -->
-    <img src="images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="OpStoppa Rust Server Logo" class="logo">
-
-    <!-- Header Section -->
     <header>
-        <h1>Welcome to OpStoppa 3X Rust Server</h1>
+        <h1>OpStoppa 3X Rust Server</h1>
     </header>
 
-    <!-- Navigation (Tabs) -->
+    <!-- Navigation -->
     <nav>
-        <a href="#home" class="active" onclick="showTab('home')">Home</a>
+        <a href="#home" onclick="showTab('home')">Home</a>
         <a href="#leaderboard" onclick="showTab('leaderboard')">Leaderboard</a>
         <a href="#server-info" onclick="showTab('server-info')">Server Info</a>
-        <a href="#map" onclick="showTab('map')">Map</a> <!-- Added Map Tab -->
-        <a href="#contact" onclick="showTab('contact')">Contact</a>
+        <a href="#map" onclick="showTab('map')">Map</a>
     </nav>
 
-    <!-- Main Content Sections -->
-    <div id="home" class="tab-content active content">
-        <h2>Server Status: <span id="server-status">Loading...</span></h2>
+    <!-- Home Tab -->
+    <div id="home" class="content active">
+        <h2>Welcome to OpStoppa 3X</h2>
+        <p>Server Status: <span id="server-status">Loading...</span></p>
         <p>Current Population: <span id="population">Loading...</span></p>
-        <p>Map: <span id="map-name">Loading...</span></p>
-        <a href="https://discord.gg/vpfP6S4d" target="_blank" class="button">Join Our Discord</a>
     </div>
 
-    <div id="leaderboard" class="tab-content content">
+    <!-- Leaderboard Tab -->
+    <div id="leaderboard" class="content" style="display:none;">
         <h2>Leaderboard</h2>
-        <p>Coming soon... Leaderboard integration is in progress!</p>
+        <p>Coming Soon!</p>
     </div>
 
-    <div id="server-info" class="tab-content content">
+    <!-- Server Info Tab -->
+    <div id="server-info" class="content" style="display:none;">
         <h2>Server Info</h2>
-        <p>Map Type: Procedural Map</p>
+        <p>Map Type: Procedural</p>
         <p>Population: 45/100</p>
     </div>
 
-    <!-- New Map Tab Section -->
-    <div id="map" class="tab-content content">
-        <h2>Map Preview</h2>
-        <img src="Map 1800 _ 1521819782 - RustMaps.com.html"> <!-- Replace with your actual map image -->
-        <p>Map Seed: 1521819782</p>
-        <p>Map Size: 1800</p>
+    <!-- Map Tab -->
+    <div id="map" class="content" style="display:none;">
+        <h2>Map</h2>
+        <p>Map Seed: <span id="map-seed">Loading...</span></p>
+        <p>Map Size: <span id="map-size">Loading...</span></p>
+        <img id="map-image" src="" alt="Rust Map">
     </div>
 
-    <div id="contact" class="tab-content content">
-        <h2>Contact Us</h2>
-        <p>Email: contact@opstoppa3x.com</p>
-        <p>Discord: <a href="https://discord.gg/vpfP6S4d" target="_blank">Join Our Discord</a></p>
-    </div>
-
-    <!-- Footer Section -->
+    <!-- Footer -->
     <footer>
-        <p>Server powered by <a href="https://umod.org/plugins/rcon-web-interface" target="_blank">uMod Plugins</a> | <a href="https://discord.gg/vpfP6S4d" target="_blank">OpStoppa Discord</a></p>
+        <p>Powered by RustMaps.com | <a href="https://discord.gg/vpfP6S4d" target="_blank">Discord</a></p>
     </footer>
 
-    <!-- JavaScript for Tabs -->
+    <!-- JavaScript -->
     <script>
-        function showTab(tabName) {
-            let tabs = document.querySelectorAll('.tab-content');
-            let links = document.querySelectorAll('nav a');
+        // Update server information
+        const mapSize = 1800;
+        const mapSeed = 1521819782;
 
-            tabs.forEach(tab => tab.classList.remove('active'));
-            links.forEach(link => link.classList.remove('active'));
+        document.getElementById('server-status').innerText = 'Online';
+        document.getElementById('population').innerText = '45/100';
+        document.getElementById('map-seed').innerText = mapSeed;
+        document.getElementById('map-size').innerText = mapSize;
 
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
+        // Dynamically set map URL
+        const mapUrl = `https://rustmaps.com/map/${mapSize}_${mapSeed}`;
+        document.getElementById('map-image').src = mapUrl;
+
+        // Tab navigation
+        function showTab(tabId) {
+            const tabs = document.querySelectorAll('.content');
+            tabs.forEach(tab => tab.style.display = 'none');
+            document.getElementById(tabId).style.display = 'block';
         }
-
-        // Simulated data for now (replace with actual server data later)
-        window.onload = () => {
-            document.getElementById('server-status').innerText = 'Online';
-            document.getElementById('population').innerText = '45/100';
-            document.getElementById('map-name').innerText = 'Procedural Map';
-            document.getElementById('pop').innerText = '45 Players Online';
-            document.getElementById('map').innerText = 'Procedural Map';
-        };
     </script>
-
 </body>
 </html>
