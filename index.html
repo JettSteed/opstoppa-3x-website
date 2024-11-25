@@ -17,7 +17,7 @@
         body {
             font-family: 'Arial', sans-serif;
             color: #f2f2f2;
-            background-image: url('images/download.jpg');
+            background-image: url('images/download.png'); /* Make sure this matches the file name */
             background-size: cover;
             background-position: center;
             height: 100vh;
@@ -137,6 +137,14 @@
             transform: scale(1.05);
         }
 
+        /* Map Image Section */
+        .map-image {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 30px;
+            border-radius: 10px;
+        }
+
         /* Fade-in animation */
         @keyframes fadeIn {
             from {
@@ -172,6 +180,10 @@
         <p>Current Population: <span id="population">Loading...</span></p>
         <p>Map: <span id="map-name">Loading...</span></p>
         <a href="https://discord.gg/vpfP6S4d" target="_blank" class="button">Join Our Discord</a>
+
+        <!-- Map Image (Example) -->
+        <h3>Map Preview:</h3>
+        <img src="https://example.com/map_preview.jpg" alt="Procedural Map Preview" class="map-image"> <!-- Replace this with your map image -->
     </div>
 
     <!-- Other Tabs -->
@@ -209,6 +221,15 @@
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
+
+        // Simulated data for now (replace with actual server data later)
+        window.onload = () => {
+            document.getElementById('server-status').innerText = 'Online';
+            document.getElementById('population').innerText = '45/100';
+            document.getElementById('map-name').innerText = 'Procedural Map';
+            document.getElementById('pop').innerText = '45 Players Online';
+            document.getElementById('map').innerText = 'Procedural Map';
+        };
     </script>
 
 </body>
