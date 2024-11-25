@@ -4,56 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpStoppa 3X Rust Server</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- For icons -->
     <style>
-        /* Body Styling */
-        body {
-            background-image: url('images/download.jpg');
-            background-size: cover; /* Ensures the image fills the screen */
-            background-position: center; /* Centers the image */
-            color: #f2f2f2; /* Light text color for contrast */
-            font-family: 'Arial', sans-serif;
+        /* Basic Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Body and Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #f2f2f2;
+            background-image: url('images/download.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
         }
 
-        /* Header Styling */
+        /* Header Section */
         header {
             text-align: center;
-            padding: 50px 0;
-            background-color: rgba(0, 0, 0, 0.5); /* Darken the background to make text readable */
+            padding: 60px 20px;
+            background-color: rgba(0, 0, 0, 0.6);
         }
 
         header img {
-            max-width: 100%;
+            max-width: 80%;
             height: auto;
+            border-radius: 15px;
+            margin-bottom: 20px;
         }
 
-        /* Navigation Bar Styling */
+        header h1 {
+            font-size: 3em;
+            color: #f2a900; /* Rusty color */
+            font-weight: bold;
+        }
+
+        /* Navigation (Tabs) */
         nav {
-            background-color: rgba(0, 0, 0, 0.7); /* Dark background for nav */
-            color: white;
-            text-align: center;
-            padding: 10px;
+            display: flex;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 15px;
         }
 
         nav a {
             color: white;
-            margin: 0 15px;
+            padding: 15px 25px;
             text-decoration: none;
+            font-size: 1.2em;
+            margin: 0 10px;
+            transition: all 0.3s ease-in-out;
         }
 
         nav a:hover {
-            text-decoration: underline;
+            background-color: #f2a900;
+            color: black;
+            border-radius: 5px;
         }
 
-        /* Content Styling */
+        /* Section Content */
         .content {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.6); /* Transparent dark background for content */
+            padding: 50px;
+            background-color: rgba(0, 0, 0, 0.7);
             margin-top: 20px;
+            border-radius: 10px;
         }
 
-        /* Footer Styling */
+        /* Server Stats Section */
+        .server-stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.2);
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+
+        .server-stats h2 {
+            color: #f2a900;
+        }
+
+        .stat-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-info p {
+            font-size: 1.5em;
+            margin-right: 20px;
+        }
+
+        /* Footer Section */
         footer {
             background-color: rgba(0, 0, 0, 0.8);
             color: white;
@@ -64,52 +110,83 @@
             width: 100%;
         }
 
-        /* Styling for buttons */
-        .button {
-            background-color: #f2a900; /* Rust-like color for buttons */
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            text-align: center;
+        footer a {
+            color: #f2a900;
             text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            margin: 10px;
-            cursor: pointer;
+        }
+
+        /* Modern Button */
+        .button {
+            background-color: #f2a900;
+            padding: 15px 25px;
+            font-size: 1.2em;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
         .button:hover {
             background-color: #d88e00;
         }
+
     </style>
 </head>
 <body>
 
     <!-- Header Section -->
     <header>
-        <img src="images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="OpStoppa Logo">
+        <img src="images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="OpStoppa Rust Server Logo">
         <h1>Welcome to OpStoppa 3X Rust Server</h1>
     </header>
 
-    <!-- Navigation Section -->
+    <!-- Navigation Tabs -->
     <nav>
         <a href="#home">Home</a>
         <a href="#leaderboard">Leaderboard</a>
-        <a href="#about">About</a>
+        <a href="#server-info">Server Info</a>
         <a href="#contact">Contact</a>
     </nav>
 
     <!-- Main Content Section -->
-    <div class="content">
-        <h2>Server Status: Online</h2>
-        <p>Current Population: 50/100</p>
-        <p>Map: Procedural Map</p>
+    <div class="content" id="home">
+        <h2>Server Status: <span id="server-status">Loading...</span></h2>
+        <p>Current Population: <span id="population">Loading...</span></p>
+        <p>Map: <span id="map-name">Loading...</span></p>
+        <a href="https://discord.gg/vpfP6S4d" target="_blank" class="button">Join Our Discord</a>
+    </div>
+
+    <!-- Server Stats Section -->
+    <div class="server-stats">
+        <div class="stat-info">
+            <h2>Current Population</h2>
+            <p id="pop">Loading...</p>
+        </div>
+        <div class="stat-info">
+            <h2>Map Type</h2>
+            <p id="map">Loading...</p>
+        </div>
     </div>
 
     <!-- Footer Section -->
     <footer>
-        <p>Join us on Discord: <a href="https://discord.gg/vpfP6S4d" target="_blank" style="color: #f2a900;">OpStoppa Discord</a></p>
+        <p>Server powered by <a href="https://umod.org/plugins/rcon-web-interface" target="_blank">uMod Plugins</a> | <a href="https://discord.gg/vpfP6S4d" target="_blank">OpStoppa Discord</a></p>
     </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Example to simulate fetching server status and population
+        window.onload = function() {
+            // Simulate fetching data (In real case, this can be fetched from your server's API)
+            document.getElementById('server-status').innerText = 'Online';
+            document.getElementById('population').innerText = '50/100';  // Update with actual data
+            document.getElementById('map-name').innerText = 'Procedural Map';  // Update with actual map name
+
+            // Simulate fetching additional stats
+            document.getElementById('pop').innerText = '50/100';  // Update with actual population
+            document.getElementById('map').innerText = 'Procedural Map';  // Update with actual map name
+        };
+    </script>
 
 </body>
 </html>
