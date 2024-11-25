@@ -1,183 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpStoppa 3X - Rust Server</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #2b2b2b;
-      color: #f5f5f5;
-    }
-    header {
-      background: linear-gradient(to right, #ff7b00, #ff1c68);
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    nav {
-      background: #333;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: center;
-    }
-    nav a {
-      color: #f5f5f5;
-      margin: 0 15px;
-      text-decoration: none;
-    }
-    nav a:hover {
-      text-decoration: underline;
-    }
-    section {
-      padding: 20px;
-    }
-    .info {
-      background: #444;
-      padding: 20px;
-      margin: 10px 0;
-      border-radius: 8px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    table, th, td {
-      border: 1px solid #555;
-    }
-    th, td {
-      padding: 10px;
-      text-align: center;
-    }
-    th {
-      background-color: #555;
-      color: #fff;
-    }
-    footer {
-      text-align: center;
-      padding: 10px;
-      background: #222;
-      color: #fff;
-    }
-    .btn {
-      display: inline-block;
-      padding: 10px 20px;
-      background: #ff7b00;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-    .btn:hover {
-      background: #ff1c68;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpStoppa 3X Rust Server</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #f5f5f5;
+        }
+
+        header {
+            background-color: #222;
+            padding: 10px 20px;
+            text-align: center;
+            border-bottom: 2px solid #444;
+        }
+
+        header h1 {
+            color: #f0a500;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+            border-bottom: 2px solid #444;
+        }
+
+        nav a {
+            padding: 15px 20px;
+            color: #f5f5f5;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #444;
+        }
+
+        section {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        footer {
+            background-color: #222;
+            padding: 10px;
+            text-align: center;
+            color: #aaa;
+        }
+
+        .images img {
+            width: 300px;
+            margin: 10px;
+            border-radius: 8px;
+            border: 2px solid #444;
+        }
+
+        .leaderboard, .about {
+            text-align: left;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .discord {
+            margin-top: 20px;
+        }
+
+        .discord a {
+            color: #7289da;
+            font-weight: bold;
+        }
+    </style>
+    <script>
+        // JavaScript to handle tab switching
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
 </head>
 <body>
-  <header>
-    <h1>Welcome to OpStoppa 3X</h1>
-    <p>Your ultimate Rust experience awaits!</p>
-  </header>
-
-  <nav>
-    <a href="#about">About</a>
-    <a href="#server-stats">Server Stats</a>
-    <a href="#leaderboard">Leaderboard</a>
-    <a href="#community">Community</a>
-  </nav>
-
-  <section id="about">
-    <h2>About the Server</h2>
-    <div class="info">
-      <p>OpStoppa 3X is a Rust server offering an enhanced experience with 3X gathering, custom maps, and friendly admins.</p>
-      <p><b>Server IP:</b> 49.192.55.233:28015</p>
-      <p><b>Map Size:</b> 1800</p>
-    </div>
-  </section>
-
-  <section id="server-stats">
-    <h2>Server Stats</h2>
-    <div class="info">
-      <p><b>Server Name:</b> OpStoppa 3X</p>
-      <p><b>Players Online:</b> <span id="player-count">Loading...</span></p>
-      <p><b>Max Players:</b> 100</p>
-    </div>
-  </section>
-
-  <section id="leaderboard">
-    <h2>Leaderboard</h2>
-    <div class="info">
-      <table>
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Player Name</th>
-            <th>Kills</th>
-            <th>Deaths</th>
-          </tr>
-        </thead>
-        <tbody id="leaderboard-data">
-          <!-- Rows will be populated dynamically -->
-          <tr><td colspan="4">Loading...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <section id="community">
-    <h2>Join the Community</h2>
-    <div class="info">
-      <p>Connect with other players and stay updated by joining our <a href="https://discord.gg/vpfP6S4d" target="_blank" class="btn">Discord Server</a>.</p>
-    </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2024 OpStoppa 3X. All Rights Reserved.</p>
-  </footer>
-
-  <script>
-    // Fetch Player Count from BattleMetrics API
-    async function fetchPlayerCount() {
-      try {
-        const response = await fetch('https://api.battlemetrics.com/servers?filter[search]=49.192.55.233');
-        const data = await response.json();
-        const playerCount = data.data[0]?.attributes?.players || 'N/A';
-        document.getElementById('player-count').innerText = playerCount;
-      } catch (error) {
-        console.error('Error fetching server stats:', error);
-        document.getElementById('player-count').innerText = 'Error';
-      }
-    }
-
-    // Fetch Leaderboard Data (Replace with your backend API URL)
-    async function fetchLeaderboard() {
-      const leaderboardAPI = 'https://example.com/api/leaderboard'; // Replace with actual API
-      try {
-        const response = await fetch(leaderboardAPI);
-        const players = await response.json();
-        const leaderboard = players.map(
-          (player, index) =>
-            `<tr>
-              <td>${index + 1}</td>
-              <td>${player.name}</td>
-              <td>${player.kills}</td>
-              <td>${player.deaths}</td>
-            </tr>`
-        );
-        document.getElementById('leaderboard-data').innerHTML = leaderboard.join('');
-      } catch (error) {
-        console.error('Error fetching leaderboard:', error);
-        document.getElementById('leaderboard-data').innerHTML = '<tr><td colspan="4">Error fetching leaderboard</td></tr>';
-      }
-    }
-
-    // Fetch data on page load
-    fetchPlayerCount();
-    fetchLeaderboard();
-  </script>
+    <header>
+        <h1>OpStoppa 3X Rust Server</h1>
+    </header>
+    <nav>
+        <a href="#" onclick="switchTab('home')">Home</a>
+        <a href="#" onclick="switchTab('leaderboards')">Leaderboards</a>
+        <a href="#" onclick="switchTab('about')">About</a>
+        <a href="#" onclick="switchTab('discord')">Discord</a>
+    </nav>
+    <section id="home" class="tab-content active">
+        <h2>Welcome to OpStoppa 3X</h2>
+        <p>Explore the ultimate Rust experience on our server! Below are some iconic Rust images:</p>
+        <div class="images">
+            <img src="https://i.imgur.com/E9bGzQh.jpg" alt="Rust Gameplay">
+            <img src="https://i.imgur.com/QyNzyjn.jpg" alt="Rust Base">
+            <img src="https://i.imgur.com/8zWkDbK.jpg" alt="Rust Adventure">
+        </div>
+    </section>
+    <section id="leaderboards" class="tab-content">
+        <h2>Server Leaderboards</h2>
+        <div class="leaderboard">
+            <p><strong>Top Players:</strong></p>
+            <ul>
+                <li>Player1 - 1200 kills</li>
+                <li>Player2 - 900 kills</li>
+                <li>Player3 - 850 kills</li>
+            </ul>
+            <p><strong>Most Resources Gathered:</strong></p>
+            <ul>
+                <li>PlayerA - 50k wood</li>
+                <li>PlayerB - 30k stone</li>
+                <li>PlayerC - 20k sulfur</li>
+            </ul>
+        </div>
+    </section>
+    <section id="about" class="tab-content">
+        <h2>About OpStoppa 3X</h2>
+        <div class="about">
+            <p>Welcome to OpStoppa 3X Rust Server! We provide a small but competitive map with a size of 1800, perfect for fast-paced action. Our server is configured with:</p>
+            <ul>
+                <li>3X resource gathering</li>
+                <li>Enhanced loot tables</li>
+                <li>Active moderation</li>
+                <li>Frequent wipes to keep gameplay fresh</li>
+            </ul>
+        </div>
+    </section>
+    <section id="discord" class="tab-content">
+        <h2>Join Our Discord</h2>
+        <p>Connect with the community, report issues, or chat with other players on our Discord server.</p>
+        <div class="discord">
+            <a href="https://discord.gg/vpfP6S4d" target="_blank">Click here to join our Discord</a>
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 OpStoppa 3X Rust Server. All rights reserved.</p>
+    </footer>
 </body>
 </html>
