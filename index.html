@@ -41,6 +41,22 @@
       margin: 10px 0;
       border-radius: 8px;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table, th, td {
+      border: 1px solid #555;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #555;
+      color: #fff;
+    }
     footer {
       text-align: center;
       padding: 10px;
@@ -69,48 +85,99 @@
 
   <nav>
     <a href="#about">About</a>
-    <a href="#rules">Rules</a>
+    <a href="#server-stats">Server Stats</a>
+    <a href="#leaderboard">Leaderboard</a>
     <a href="#community">Community</a>
-    <a href="#donate">Donate</a>
   </nav>
 
   <section id="about">
     <h2>About the Server</h2>
     <div class="info">
       <p>OpStoppa 3X is a Rust server offering an enhanced experience with 3X gathering, custom maps, and friendly admins.</p>
-      <p><b>Server IP:</b> 123.45.67.89:28015</p>
+      <p><b>Server IP:</b> 49.192.55.233:28015</p>
+      <p><b>Map Size:</b> 1800</p>
     </div>
   </section>
 
-  <section id="rules">
-    <h2>Server Rules</h2>
+  <section id="server-stats">
+    <h2>Server Stats</h2>
     <div class="info">
-      <ul>
-        <li>No cheating or exploiting.</li>
-        <li>Be respectful to other players and admins.</li>
-        <li>No spamming or advertising.</li>
-        <li>Have fun!</li>
-      </ul>
+      <p><b>Server Name:</b> OpStoppa 3X</p>
+      <p><b>Players Online:</b> <span id="player-count">Loading...</span></p>
+      <p><b>Max Players:</b> 100</p>
+    </div>
+  </section>
+
+  <section id="leaderboard">
+    <h2>Leaderboard</h2>
+    <div class="info">
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Player Name</th>
+            <th>Kills</th>
+            <th>Deaths</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboard-data">
+          <!-- Rows will be populated dynamically -->
+          <tr><td colspan="4">Loading...</td></tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
   <section id="community">
     <h2>Join the Community</h2>
     <div class="info">
-      <p>Connect with other players on our <a href="https://discord.gg/yourdiscord" target="_blank" class="btn">Discord Server</a>.</p>
-    </div>
-  </section>
-
-  <section id="donate">
-    <h2>Support the Server</h2>
-    <div class="info">
-      <p>Your support helps keep the server running smoothly! Consider donating to get exclusive perks.</p>
-      <a href="https://yourdonationlink.com" target="_blank" class="btn">Donate Now</a>
+      <p>Connect with other players and stay updated by joining our <a href="https://discord.gg/vpfP6S4d" target="_blank" class="btn">Discord Server</a>.</p>
     </div>
   </section>
 
   <footer>
     <p>&copy; 2024 OpStoppa 3X. All Rights Reserved.</p>
   </footer>
+
+  <script>
+    // Fetch Player Count from BattleMetrics API
+    async function fetchPlayerCount() {
+      try {
+        const response = await fetch('https://api.battlemetrics.com/servers?filter[search]=49.192.55.233');
+        const data = await response.json();
+        const playerCount = data.data[0]?.attributes?.players || 'N/A';
+        document.getElementById('player-count').innerText = playerCount;
+      } catch (error) {
+        console.error('Error fetching server stats:', error);
+        document.getElementById('player-count').innerText = 'Error';
+      }
+    }
+
+    // Fetch Leaderboard Data (Replace with your backend API URL)
+    async function fetchLeaderboard() {
+      const leaderboardAPI = 'https://example.com/api/leaderboard'; // Replace with actual API
+      try {
+        const response = await fetch(leaderboardAPI);
+        const players = await response.json();
+        const leaderboard = players.map(
+          (player, index) =>
+            `<tr>
+              <td>${index + 1}</td>
+              <td>${player.name}</td>
+              <td>${player.kills}</td>
+              <td>${player.deaths}</td>
+            </tr>`
+        );
+        document.getElementById('leaderboard-data').innerHTML = leaderboard.join('');
+      } catch (error) {
+        console.error('Error fetching leaderboard:', error);
+        document.getElementById('leaderboard-data').innerHTML = '<tr><td colspan="4">Error fetching leaderboard</td></tr>';
+      }
+    }
+
+    // Fetch data on page load
+    fetchPlayerCount();
+    fetchLeaderboard();
+  </script>
 </body>
 </html>
