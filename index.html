@@ -40,19 +40,17 @@
             color: #f2a900; /* Rusty yellow-orange */
             font-weight: bold;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
-            margin-top: 100px; /* Space for the logo */
         }
 
-        header img {
-            max-width: 40%;  /* Smaller size for the logo */
-            height: auto;
-            border-radius: 15px;
-            margin-top: 20px;
+        /* Logo */
+        .logo {
             position: absolute;
-            top: -60px; /* Adjust the logo position to avoid blocking content */
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: -1; /* Ensures the logo stays behind content */
+            top: 10px;
+            left: 10px;
+            max-width: 120px;
+            height: auto;
+            border-radius: 10px;
+            z-index: 10;
         }
 
         /* Navigation (Tabs) */
@@ -63,7 +61,7 @@
             padding: 10px;
             box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
             border-radius: 10px;
-            margin-top: 40px;
+            margin-top: 20px;
             transition: all 0.3s ease;
         }
 
@@ -102,35 +100,6 @@
             animation: fadeIn 0.5s ease-in;
             max-width: 1200px;
             margin: 0 auto;
-        }
-
-        /* Server Stats Section */
-        .server-stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.2);
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 2px 4px rgba(0,0,0,0.4);
-        }
-
-        .server-stats h2 {
-            color: #f2a900;
-            font-size: 1.8em;
-        }
-
-        .stat-info {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 250px;
-        }
-
-        .stat-info p {
-            font-size: 1.6em;
-            margin-right: 20px;
         }
 
         /* Footer Section */
@@ -181,10 +150,12 @@
 </head>
 <body>
 
+    <!-- Logo -->
+    <img src="images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="OpStoppa Rust Server Logo" class="logo">
+
     <!-- Header Section -->
     <header>
         <h1>Welcome to OpStoppa 3X Rust Server</h1>
-        <img src="images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="OpStoppa Rust Server Logo">
     </header>
 
     <!-- Navigation (Tabs) -->
@@ -203,22 +174,16 @@
         <a href="https://discord.gg/vpfP6S4d" target="_blank" class="button">Join Our Discord</a>
     </div>
 
+    <!-- Other Tabs -->
     <div id="leaderboard" class="tab-content content">
         <h2>Leaderboard</h2>
         <p>Coming soon... Leaderboard integration is in progress!</p>
     </div>
 
     <div id="server-info" class="tab-content content">
-        <div class="server-stats">
-            <div class="stat-info">
-                <h2>Current Population</h2>
-                <p id="pop">Loading...</p>
-            </div>
-            <div class="stat-info">
-                <h2>Map Type</h2>
-                <p id="map">Loading...</p>
-            </div>
-        </div>
+        <h2>Server Info</h2>
+        <p>Map Type: Procedural Map</p>
+        <p>Population: 45/100</p>
     </div>
 
     <div id="contact" class="tab-content content">
@@ -232,33 +197,18 @@
         <p>Server powered by <a href="https://umod.org/plugins/rcon-web-interface" target="_blank">uMod Plugins</a> | <a href="https://discord.gg/vpfP6S4d" target="_blank">OpStoppa Discord</a></p>
     </footer>
 
-    <!-- JavaScript for Tabs and Server Info -->
+    <!-- JavaScript for Tabs -->
     <script>
-        // Switch between tabs
         function showTab(tabName) {
             let tabs = document.querySelectorAll('.tab-content');
             let links = document.querySelectorAll('nav a');
 
-            tabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-
-            links.forEach(link => {
-                link.classList.remove('active');
-            });
+            tabs.forEach(tab => tab.classList.remove('active'));
+            links.forEach(link => link.classList.remove('active'));
 
             document.getElementById(tabName).classList.add('active');
             event.target.classList.add('active');
         }
-
-        // Simulated data for now (replace with actual server data later)
-        window.onload = () => {
-            document.getElementById('server-status').innerText = 'Online';
-            document.getElementById('population').innerText = '45/100';
-            document.getElementById('map-name').innerText = 'Procedural Map';
-            document.getElementById('pop').innerText = '45 Players Online';
-            document.getElementById('map').innerText = 'Procedural Map';
-        };
     </script>
 
 </body>
