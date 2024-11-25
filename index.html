@@ -3,157 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpStoppa 3X Rust Server</title>
+    <title>OpStoppa Rust Server</title>
+    <link rel="stylesheet" href="styles.css">
     <style>
-        /* General styles */
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #121212;
-            color: #f5f5f5;
+            background: url('images/background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
         }
-
         header {
-            background-color: #222;
-            padding: 10px 20px;
             text-align: center;
-            border-bottom: 2px solid #444;
+            padding: 50px 0;
         }
-
-        header h1 {
-            color: #f0a500;
-            margin: 0;
+        header img {
+            width: 300px; /* Adjust the size of your logo */
         }
-
         nav {
             display: flex;
             justify-content: center;
-            background-color: #333;
-            border-bottom: 2px solid #444;
-        }
-
-        nav a {
-            padding: 15px 20px;
-            color: #f5f5f5;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-
-        nav a:hover {
-            background-color: #444;
-        }
-
-        section {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        footer {
-            background-color: #222;
-            padding: 10px;
-            text-align: center;
-            color: #aaa;
-        }
-
-        .images img {
-            width: 300px;
-            margin: 10px;
-            border-radius: 8px;
-            border: 2px solid #444;
-        }
-
-        .leaderboard, .about {
-            text-align: left;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .discord {
             margin-top: 20px;
         }
-
-        .discord a {
-            color: #7289da;
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: white;
             font-weight: bold;
         }
-    </style>
-    <script>
-        // JavaScript to handle tab switching
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.getElementById(tabId).classList.add('active');
+        .tabs {
+            display: none;
+            margin-top: 30px;
         }
-    </script>
+        .tabs.active {
+            display: block;
+        }
+        .tab-content {
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 10px;
+            font-size: 14px;
+        }
+        .leaderboard, .server-stats {
+            margin: 20px 0;
+        }
+        .leaderboard ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .leaderboard li {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>OpStoppa 3X Rust Server</h1>
+        <img src="images/OpStoppa_logo.png" alt="OpStoppa Rust Server Logo">
+        <h1>Welcome to OpStoppa 3X Rust Server</h1>
+        <p>Your go-to place for fast-paced Rust gameplay!</p>
     </header>
+
     <nav>
-        <a href="#" onclick="switchTab('home')">Home</a>
-        <a href="#" onclick="switchTab('leaderboards')">Leaderboards</a>
-        <a href="#" onclick="switchTab('about')">About</a>
-        <a href="#" onclick="switchTab('discord')">Discord</a>
+        <a href="#" onclick="showTab('home')">Home</a>
+        <a href="#" onclick="showTab('leaderboards')">Leaderboards</a>
+        <a href="#" onclick="showTab('server-stats')">Server Stats</a>
     </nav>
-    <section id="home" class="tab-content active">
-        <h2>Welcome to OpStoppa 3X</h2>
-        <p>Explore the ultimate Rust experience on our server! Below are some iconic Rust images:</p>
-        <div class="images">
-            <img src="https://i.imgur.com/E9bGzQh.jpg" alt="Rust Gameplay">
-            <img src="https://i.imgur.com/QyNzyjn.jpg" alt="Rust Base">
-            <img src="https://i.imgur.com/8zWkDbK.jpg" alt="Rust Adventure">
+
+    <div id="home" class="tabs active tab-content">
+        <h2>Server Status</h2>
+        <div id="serverStatus">
+            <!-- Dynamically display server status (Online/Offline) -->
+            <p>Loading server status...</p>
         </div>
-    </section>
-    <section id="leaderboards" class="tab-content">
-        <h2>Server Leaderboards</h2>
+    </div>
+
+    <div id="leaderboards" class="tabs tab-content">
+        <h2>Leaderboards</h2>
         <div class="leaderboard">
             <p><strong>Top Players:</strong></p>
-            <ul>
-                <li>Player1 - 1200 kills</li>
-                <li>Player2 - 900 kills</li>
-                <li>Player3 - 850 kills</li>
+            <ul id="leaderboardList">
+                <!-- Dynamic leaderboard entries will be inserted here -->
             </ul>
-            <p><strong>Most Resources Gathered:</strong></p>
-            <ul>
-                <li>PlayerA - 50k wood</li>
-                <li>PlayerB - 30k stone</li>
-                <li>PlayerC - 20k sulfur</li>
-            </ul>
+            <p id="noPlayersMessage" style="display:none;">No players found.</p>
         </div>
-    </section>
-    <section id="about" class="tab-content">
-        <h2>About OpStoppa 3X</h2>
-        <div class="about">
-            <p>Welcome to OpStoppa 3X Rust Server! We provide a small but competitive map with a size of 1800, perfect for fast-paced action. Our server is configured with:</p>
-            <ul>
-                <li>3X resource gathering</li>
-                <li>Enhanced loot tables</li>
-                <li>Active moderation</li>
-                <li>Frequent wipes to keep gameplay fresh</li>
-            </ul>
+    </div>
+
+    <div id="server-stats" class="tabs tab-content">
+        <h2>Current Server Stats</h2>
+        <div class="server-stats">
+            <p><strong>Map:</strong> <span id="serverMap">Loading...</span></p>
+            <p><strong>Current Population:</strong> <span id="serverPopulation">Loading...</span></p>
         </div>
-    </section>
-    <section id="discord" class="tab-content">
-        <h2>Join Our Discord</h2>
-        <p>Connect with the community, report issues, or chat with other players on our Discord server.</p>
-        <div class="discord">
-            <a href="https://discord.gg/vpfP6S4d" target="_blank">Click here to join our Discord</a>
-        </div>
-    </section>
+    </div>
+
     <footer>
-        <p>&copy; 2024 OpStoppa 3X Rust Server. All rights reserved.</p>
+        <p>Join our Discord: <a href="https://discord.gg/vpfP6S4d" target="_blank" style="color:white;">Click here</a></p>
     </footer>
+
+    <script>
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tabs');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        // Simulate fetching dynamic data (you'll replace this with actual server data via API or PHP)
+        function fetchServerStatus() {
+            // Example: Fetch real status (Online/Offline)
+            const serverStatusElement = document.getElementById('serverStatus');
+            const isOnline = true; // Replace with actual check from server
+            if (isOnline) {
+                serverStatusElement.innerHTML = "<p>Status: <strong>Online</strong></p>";
+            } else {
+                serverStatusElement.innerHTML = "<p>Status: <strong>Offline</strong></p>";
+            }
+        }
+
+        function fetchLeaderboard() {
+            // Example: Fetch real leaderboard data via RCON or API
+            const leaderboardData = []; // Replace with actual leaderboard data from server
+            const leaderboardList = document.getElementById('leaderboardList');
+            const noPlayersMessage = document.getElementById('noPlayersMessage');
+
+            if (leaderboardData.length > 0) {
+                leaderboardList.innerHTML = leaderboardData.map(player => {
+                    return `<li>${player.name} - ${player.kills} kills</li>`;
+                }).join('');
+                noPlayersMessage.style.display = 'none';
+            } else {
+                leaderboardList.innerHTML = '';
+                noPlayersMessage.style.display = 'block';
+            }
+        }
+
+        function fetchServerStats() {
+            // Example: Fetch real server stats (population, map)
+            const mapElement = document.getElementById('serverMap');
+            const populationElement = document.getElementById('serverPopulation');
+
+            // Replace with actual data from server
+            mapElement.textContent = 'Procedural Map';  // Example: Replace with dynamic map name
+            populationElement.textContent = '15/100';  // Example: Replace with dynamic population count
+        }
+
+        // Call functions on page load
+        window.onload = function() {
+            fetchServerStatus();
+            fetchLeaderboard();
+            fetchServerStats();
+        }
+    </script>
 </body>
 </html>
