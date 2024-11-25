@@ -32,17 +32,7 @@
             background-color: rgba(0, 0, 0, 0.6);
             box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
             position: relative;
-        }
-
-        header img {
-            position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 60%;
-            height: auto;
-            border-radius: 15px;
-            margin-top: 20px;
+            z-index: 1;
         }
 
         header h1 {
@@ -50,7 +40,19 @@
             color: #f2a900; /* Rusty yellow-orange */
             font-weight: bold;
             text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
-            margin-top: 120px; /* To make space for the logo */
+            margin-top: 100px; /* Space for the logo */
+        }
+
+        header img {
+            max-width: 40%;  /* Smaller size for the logo */
+            height: auto;
+            border-radius: 15px;
+            margin-top: 20px;
+            position: absolute;
+            top: -60px; /* Adjust the logo position to avoid blocking content */
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1; /* Ensures the logo stays behind content */
         }
 
         /* Navigation (Tabs) */
@@ -249,9 +251,8 @@
             event.target.classList.add('active');
         }
 
-        // Example to simulate fetching server status and population
-        window.onload = function() {
-            // Simulate fetching data (In real cases, use uMod API or RCON)
+        // Simulated data for now (replace with actual server data later)
+        window.onload = () => {
             document.getElementById('server-status').innerText = 'Online';
             document.getElementById('population').innerText = '45/100';
             document.getElementById('map-name').innerText = 'Procedural Map';
