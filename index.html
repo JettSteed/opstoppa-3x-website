@@ -1,162 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpStoppa Rust Server</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('images/background.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
-        }
-        header {
-            text-align: center;
-            padding: 50px 0;
-        }
-        header img {
-            width: 300px; /* Adjust the size of your logo */
-        }
-        nav {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        nav a {
-            margin: 0 15px;
-            text-decoration: none;
-            color: white;
-            font-weight: bold;
-        }
-        .tabs {
-            display: none;
-            margin-top: 30px;
-        }
-        .tabs.active {
-            display: block;
-        }
-        .tab-content {
-            padding: 20px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 8px;
-        }
-        footer {
-            text-align: center;
-            margin-top: 50px;
-            padding: 10px;
-            font-size: 14px;
-        }
-        .leaderboard, .server-stats {
-            margin: 20px 0;
-        }
-        .leaderboard ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        .leaderboard li {
-            margin: 5px 0;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpStoppa 3X | Rust Server</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      color: white;
+      background: url('https://i.imgur.com/dRr1IXC.jpg') no-repeat center center fixed; /* Rust-themed background */
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* Header Styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+
+    header img {
+      height: 60px;
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      color: white;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff9900;
+    }
+
+    /* Hero Section */
+    .hero {
+      flex: 1;
+      text-align: center;
+      padding: 100px 20px;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      padding: 15px 30px;
+      font-size: 1rem;
+      color: white;
+      background-color: #ff9900;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #cc7a00;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #ff9900;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <img src="images/OpStoppa_logo.png" alt="OpStoppa Rust Server Logo">
-        <h1>Welcome to OpStoppa 3X Rust Server</h1>
-        <p>Your go-to place for fast-paced Rust gameplay!</p>
-    </header>
 
+  <!-- Header Section -->
+  <header>
+    <img src="OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="OpStoppa Logo">
     <nav>
-        <a href="#" onclick="showTab('home')">Home</a>
-        <a href="#" onclick="showTab('leaderboards')">Leaderboards</a>
-        <a href="#" onclick="showTab('server-stats')">Server Stats</a>
+      <a href="#home">Home</a>
+      <a href="#stats">Server Stats</a>
+      <a href="#discord">Discord</a>
     </nav>
+  </header>
 
-    <div id="home" class="tabs active tab-content">
-        <h2>Server Status</h2>
-        <div id="serverStatus">
-            <!-- Dynamically display server status (Online/Offline) -->
-            <p>Loading server status...</p>
-        </div>
-    </div>
+  <!-- Hero Section -->
+  <div class="hero" id="home">
+    <h1>Welcome to OpStoppa 3X Rust Server</h1>
+    <p>The ultimate Rust experience: 3X resources, small map, and intense action. Join us today!</p>
+    <a href="steam://connect/49.192.55.233:28015" class="btn">Join the Server</a>
+  </div>
 
-    <div id="leaderboards" class="tabs tab-content">
-        <h2>Leaderboards</h2>
-        <div class="leaderboard">
-            <p><strong>Top Players:</strong></p>
-            <ul id="leaderboardList">
-                <!-- Dynamic leaderboard entries will be inserted here -->
-            </ul>
-            <p id="noPlayersMessage" style="display:none;">No players found.</p>
-        </div>
-    </div>
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 OpStoppa. All rights reserved. | <a href="https://discord.gg/vpfP6S4d" target="_blank">Join our Discord</a></p>
+  </footer>
 
-    <div id="server-stats" class="tabs tab-content">
-        <h2>Current Server Stats</h2>
-        <div class="server-stats">
-            <p><strong>Map:</strong> <span id="serverMap">Loading...</span></p>
-            <p><strong>Current Population:</strong> <span id="serverPopulation">Loading...</span></p>
-        </div>
-    </div>
-
-    <footer>
-        <p>Join our Discord: <a href="https://discord.gg/vpfP6S4d" target="_blank" style="color:white;">Click here</a></p>
-    </footer>
-
-    <script>
-        function showTab(tabName) {
-            const tabs = document.querySelectorAll('.tabs');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-        }
-
-        // Simulate fetching dynamic data (you'll replace this with actual server data via API or PHP)
-        function fetchServerStatus() {
-            // Example: Fetch real status (Online/Offline)
-            const serverStatusElement = document.getElementById('serverStatus');
-            const isOnline = true; // Replace with actual check from server
-            if (isOnline) {
-                serverStatusElement.innerHTML = "<p>Status: <strong>Online</strong></p>";
-            } else {
-                serverStatusElement.innerHTML = "<p>Status: <strong>Offline</strong></p>";
-            }
-        }
-
-        function fetchLeaderboard() {
-            // Example: Fetch real leaderboard data via RCON or API
-            const leaderboardData = []; // Replace with actual leaderboard data from server
-            const leaderboardList = document.getElementById('leaderboardList');
-            const noPlayersMessage = document.getElementById('noPlayersMessage');
-
-            if (leaderboardData.length > 0) {
-                leaderboardList.innerHTML = leaderboardData.map(player => {
-                    return `<li>${player.name} - ${player.kills} kills</li>`;
-                }).join('');
-                noPlayersMessage.style.display = 'none';
-            } else {
-                leaderboardList.innerHTML = '';
-                noPlayersMessage.style.display = 'block';
-            }
-        }
-
-        function fetchServerStats() {
-            // Example: Fetch real server stats (population, map)
-            const mapElement = document.getElementById('serverMap');
-            const populationElement = document.getElementById('serverPopulation');
-
-            // Replace with actual data from server
-            mapElement.textContent = 'Procedural Map';  // Example: Replace with dynamic map name
-            populationElement.textContent = '15/100';  // Example: Replace with dynamic population count
-        }
-
-        // Call functions on page load
-        window.onload = function() {
-            fetchServerStatus();
-            fetchLeaderboard();
-            fetchServerStats();
-        }
-    </script>
 </body>
 </html>
