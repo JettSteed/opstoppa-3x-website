@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpStoppa 3X Rust Server</title>
     <style>
-        /* Basic Reset */
+        /* Reset and Base Styling */
         * {
             margin: 0;
             padding: 0;
@@ -16,6 +16,7 @@
             font-family: 'Arial', sans-serif;
             background-image: url('images/download.png');
             background-size: cover;
+            background-repeat: no-repeat;
             background-position: center;
             color: white;
             overflow-x: hidden;
@@ -104,30 +105,24 @@
     <!-- Map Tab -->
     <div id="map" class="content" style="display:none;">
         <h2>Map</h2>
-        <p>Map Seed: <span id="map-seed">Loading...</span></p>
-        <p>Map Size: <span id="map-size">Loading...</span></p>
-        <img id="map-image" src="" alt="Rust Map">
+        <p>This section will display the custom map when your generation tool is ready.</p>
+        <p>Current Map Seed: 1521819782</p>
+        <p>Current Map Size: 1800</p>
+        <div id="custom-map">
+            <p>Map Preview Coming Soon!</p>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p>Powered by RustMaps.com | <a href="https://discord.gg/vpfP6S4d" target="_blank">Discord</a></p>
+        <p>Powered by OpStoppa | <a href="https://discord.gg/vpfP6S4d" target="_blank">Discord</a></p>
     </footer>
 
     <!-- JavaScript -->
     <script>
-        // Update server information
-        const mapSize = 1800;
-        const mapSeed = 1521819782;
-
+        // Placeholder: Update server status and population
         document.getElementById('server-status').innerText = 'Online';
-        document.getElementById('population').innerText = '45/100';
-        document.getElementById('map-seed').innerText = mapSeed;
-        document.getElementById('map-size').innerText = mapSize;
-
-        // Dynamically set map URL
-        const mapUrl = `https://rustmaps.com/map/${mapSize}_${mapSeed}`;
-        document.getElementById('map-image').src = mapUrl;
+        document.getElementById('population').innerText = '50/100';
 
         // Tab navigation
         function showTab(tabId) {
