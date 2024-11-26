@@ -5,27 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpStoppa 3X Rust Server</title>
     <style>
+        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1a1a1a, #343a40);
-            color: #f8f9fa;
+            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            color: #fff;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         header {
             width: 100%;
-            padding: 10px 20px;
-            background-color: #212529;
+            padding: 15px 20px;
+            background-color: #2c3e50;
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         header img {
-            height: 50px;
+            height: 60px;
         }
         nav {
             display: flex;
@@ -33,62 +38,85 @@
         }
         nav a {
             text-decoration: none;
-            color: #f8f9fa;
-            padding: 8px 16px;
+            color: #ecf0f1;
+            padding: 10px 20px;
             border-radius: 5px;
+            background: linear-gradient(90deg, #3498db, #8e44ad);
             transition: background 0.3s ease;
         }
         nav a:hover {
-            background: #495057;
+            background: linear-gradient(90deg, #8e44ad, #3498db);
         }
         main {
-            margin-top: 20px;
+            flex-grow: 1;
             width: 90%;
             max-width: 1200px;
+            margin: 20px auto;
             text-align: center;
         }
         .tab {
             display: none;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            margin-bottom: 30px;
         }
         .tab.active {
             display: block;
         }
         button {
-            padding: 10px 20px;
-            margin: 10px;
+            padding: 12px 25px;
+            margin: 15px;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             color: #fff;
-            font-size: 16px;
+            font-size: 18px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            transition: transform 0.2s ease;
         }
         button:hover {
-            opacity: 0.8;
+            transform: scale(1.05);
         }
-        .generate-button {
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        }
-        footer {
-            margin-top: 20px;
+        #map-tool input {
+            margin: 10px;
             padding: 10px;
-            background-color: #212529;
-            color: #f8f9fa;
-            width: 100%;
-            text-align: center;
+            border: 2px solid #fff;
+            border-radius: 8px;
+            width: 220px;
+            font-size: 16px;
         }
         #map-preview {
             margin-top: 20px;
             max-width: 100%;
             max-height: 500px;
-            border: 2px solid #495057;
-            border-radius: 10px;
+            border: 2px solid #3498db;
+            border-radius: 15px;
         }
-        #map-tool input {
+        footer {
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            width: 100%;
+            text-align: center;
+        }
+        /* Scrolling Section for Server Stats */
+        .stats-section {
+            margin: 30px auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            overflow-y: auto;
+        }
+        .stats-card {
+            display: inline-block;
+            width: 30%;
             margin: 10px;
-            padding: 10px;
-            border: 1px solid #495057;
-            border-radius: 5px;
-            width: 200px;
+            padding: 20px;
+            border-radius: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
@@ -98,6 +126,7 @@
         <nav>
             <a href="#" onclick="showTab('home')">Home</a>
             <a href="#" onclick="showTab('map')">Rust Map</a>
+            <a href="#" onclick="showTab('stats')">Server Stats</a>
             <a href="#" onclick="showTab('about')">About</a>
         </nav>
     </header>
@@ -106,7 +135,7 @@
         <!-- Home Tab -->
         <div id="home" class="tab active">
             <h1>Welcome to OpStoppa 3X Rust Server</h1>
-            <p>Experience the ultimate Rust gameplay on our custom server!</p>
+            <p>Experience a fully immersive Rust experience!</p>
         </div>
 
         <!-- Map Tab -->
@@ -115,15 +144,34 @@
             <form id="map-tool">
                 <input type="number" id="map-seed" placeholder="Enter Seed" required>
                 <input type="number" id="map-size" placeholder="Enter Map Size" required>
-                <button type="button" class="generate-button" onclick="generateMap()">Generate Map</button>
+                <button type="button" onclick="generateMap()">Generate Map</button>
             </form>
-            <img id="map-preview" alt="Generated Map Preview">
+            <img id="map-preview" src="" alt="Generated Map Preview">
+        </div>
+
+        <!-- Server Stats Tab -->
+        <div id="stats" class="tab">
+            <h2>Server Stats</h2>
+            <div class="stats-section">
+                <div class="stats-card">
+                    <h3>Active Players</h3>
+                    <p>50/100</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Current Map</h3>
+                    <p>Size: 1800 | Seed: 1521819782</p>
+                </div>
+                <div class="stats-card">
+                    <h3>Last Wipe</h3>
+                    <p>2 Days Ago</p>
+                </div>
+            </div>
         </div>
 
         <!-- About Tab -->
         <div id="about" class="tab">
             <h2>About Us</h2>
-            <p>OpStoppa 3X Rust Server is dedicated to providing the best gaming experience for all players.</p>
+            <p>Dedicated to providing the best Rust gaming experience. Join our community and dominate the battlefield!</p>
         </div>
     </main>
 
@@ -145,9 +193,10 @@
                 return;
             }
 
-            // Fake URL for demonstration. Replace with actual backend API endpoint for map generation.
             const mapUrl = `https://your-backend-url.com/generate-map?seed=${seed}&size=${size}`;
-            document.getElementById('map-preview').src = mapUrl;
+            const mapPreview = document.getElementById('map-preview');
+            mapPreview.src = mapUrl;
+            mapPreview.alt = `Generated Map for Seed ${seed} and Size ${size}`;
         }
     </script>
 </body>
