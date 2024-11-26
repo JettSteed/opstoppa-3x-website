@@ -15,7 +15,6 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden;
         }
         header {
             width: 100%;
@@ -101,15 +100,15 @@
             width: 100%;
             text-align: center;
         }
-        /* Scrolling Section for Server Stats */
-        .stats-section {
+        /* Server Info Section */
+        .info-section {
             margin: 30px auto;
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 15px;
             overflow-y: auto;
         }
-        .stats-card {
+        .info-card {
             display: inline-block;
             width: 30%;
             margin: 10px;
@@ -126,7 +125,7 @@
         <nav>
             <a href="#" onclick="showTab('home')">Home</a>
             <a href="#" onclick="showTab('map')">Rust Map</a>
-            <a href="#" onclick="showTab('stats')">Server Stats</a>
+            <a href="#" onclick="showTab('info')">Server Info</a>
             <a href="#" onclick="showTab('about')">About</a>
         </nav>
     </header>
@@ -149,21 +148,29 @@
             <img id="map-preview" src="" alt="Generated Map Preview">
         </div>
 
-        <!-- Server Stats Tab -->
-        <div id="stats" class="tab">
-            <h2>Server Stats</h2>
-            <div class="stats-section">
-                <div class="stats-card">
-                    <h3>Active Players</h3>
-                    <p>50/100</p>
+        <!-- Server Info Tab -->
+        <div id="info" class="tab">
+            <h2>Server Info</h2>
+            <div class="info-section">
+                <div class="info-card">
+                    <h3>Rules</h3>
+                    <ul>
+                        <li>No cheating</li>
+                        <li>Respect other players</li>
+                        <li>No griefing</li>
+                    </ul>
                 </div>
-                <div class="stats-card">
-                    <h3>Current Map</h3>
-                    <p>Size: 1800 | Seed: 1521819782</p>
+                <div class="info-card">
+                    <h3>Features</h3>
+                    <ul>
+                        <li>3x Gather Rate</li>
+                        <li>Custom Events</li>
+                        <li>Active Admins</li>
+                    </ul>
                 </div>
-                <div class="stats-card">
-                    <h3>Last Wipe</h3>
-                    <p>2 Days Ago</p>
+                <div class="info-card">
+                    <h3>Wipe Schedule</h3>
+                    <p>Every Thursday at 4 PM UTC</p>
                 </div>
             </div>
         </div>
@@ -193,6 +200,7 @@
                 return;
             }
 
+            // Replace this URL with your backend for actual map generation
             const mapUrl = `https://your-backend-url.com/generate-map?seed=${seed}&size=${size}`;
             const mapPreview = document.getElementById('map-preview');
             mapPreview.src = mapUrl;
