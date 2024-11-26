@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpStoppa 3X Rust Server</title>
+    <title>OpStoppa Rust Server</title>
     <style>
         /* General Styles */
         body {
@@ -85,12 +85,35 @@
             width: 220px;
             font-size: 16px;
         }
-        #map-preview {
+        #map-display {
             margin-top: 20px;
-            max-width: 100%;
-            max-height: 500px;
-            border: 2px solid #3498db;
+            width: 100%;
+            height: 500px;
+            background-color: #2c3e50;
+            position: relative;
             border-radius: 15px;
+            overflow: hidden;
+        }
+        .grid-coordinates {
+            position: absolute;
+            color: #fff;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .grid-coordinates.x {
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .grid-coordinates.y {
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
         footer {
             margin-top: 30px;
@@ -100,28 +123,11 @@
             width: 100%;
             text-align: center;
         }
-        /* Server Info Section */
-        .info-section {
-            margin: 30px auto;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 15px;
-            overflow-y: auto;
-        }
-        .info-card {
-            display: inline-block;
-            width: 30%;
-            margin: 10px;
-            padding: 20px;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-        }
     </style>
 </head>
 <body>
     <header>
-        <img src="./images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="Logo">
+        <img src="./images/logo.png" alt="Logo">
         <nav>
             <a href="#" onclick="showTab('home')">Home</a>
             <a href="#" onclick="showTab('map')">Rust Map</a>
@@ -134,7 +140,7 @@
         <!-- Home Tab -->
         <div id="home" class="tab active">
             <h1>Welcome to OpStoppa 3X Rust Server</h1>
-            <p>Experience a fully immersive Rust experience!</p>
+            <p>Experience the ultimate Rust adventure!</p>
         </div>
 
         <!-- Map Tab -->
@@ -145,40 +151,21 @@
                 <input type="number" id="map-size" placeholder="Enter Map Size" required>
                 <button type="button" onclick="generateMap()">Generate Map</button>
             </form>
-            <img id="map-preview" src="" alt="Generated Map Preview">
+            <div id="map-display">
+                <img id="map-preview" class="map-placeholder" src="" alt="Map will be displayed here" />
+            </div>
         </div>
 
         <!-- Server Info Tab -->
         <div id="info" class="tab">
             <h2>Server Info</h2>
-            <div class="info-section">
-                <div class="info-card">
-                    <h3>Rules</h3>
-                    <ul>
-                        <li>No cheating</li>
-                        <li>Respect other players</li>
-                        <li>No griefing</li>
-                    </ul>
-                </div>
-                <div class="info-card">
-                    <h3>Features</h3>
-                    <ul>
-                        <li>3x Gather Rate</li>
-                        <li>Custom Events</li>
-                        <li>Active Admins</li>
-                    </ul>
-                </div>
-                <div class="info-card">
-                    <h3>Wipe Schedule</h3>
-                    <p>Every Thursday at 4 PM UTC</p>
-                </div>
-            </div>
+            <p>Details about the server coming soon!</p>
         </div>
 
         <!-- About Tab -->
         <div id="about" class="tab">
             <h2>About Us</h2>
-            <p>Dedicated to providing the best Rust gaming experience. Join our community and dominate the battlefield!</p>
+            <p>Learn more about our community and Rust server.</p>
         </div>
     </main>
 
@@ -195,15 +182,14 @@
         function generateMap() {
             const seed = document.getElementById('map-seed').value;
             const size = document.getElementById('map-size').value;
+
             if (!seed || !size) {
-                alert('Please enter both a seed and map size.');
+                alert('Please enter both seed and map size!');
                 return;
             }
 
-            // Replace this URL with your backend for actual map generation
-            const mapUrl = `https://your-backend-url.com/generate-map?seed=${seed}&size=${size}`;
             const mapPreview = document.getElementById('map-preview');
-            mapPreview.src = mapUrl;
+            mapPreview.src = `./images/generated_map_placeholder.png`; // Replace with your generated map URL
             mapPreview.alt = `Generated Map for Seed ${seed} and Size ${size}`;
         }
     </script>
