@@ -10,7 +10,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1f4037, #99f2c8);
+            background: linear-gradient(135deg, #FF7E5F, #feb47b);
             color: #fff;
             display: flex;
             flex-direction: column;
@@ -18,33 +18,35 @@
         }
         header {
             width: 100%;
-            padding: 15px 20px;
-            background-color: #2c3e50;
+            padding: 20px 0;
+            background-color: rgba(0, 0, 0, 0.7);
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
         header img {
-            height: 60px;
+            height: 100px;
+            margin-right: 20px;
         }
         nav {
             display: flex;
-            gap: 15px;
+            gap: 20px;
         }
         nav a {
             text-decoration: none;
-            color: #ecf0f1;
+            color: #fff;
+            font-size: 18px;
             padding: 10px 20px;
-            border-radius: 5px;
-            background: linear-gradient(90deg, #3498db, #8e44ad);
-            transition: background 0.3s ease;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #FF7E5F, #feb47b);
+            transition: transform 0.3s ease, background 0.3s ease;
         }
         nav a:hover {
-            background: linear-gradient(90deg, #8e44ad, #3498db);
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #feb47b, #FF7E5F);
         }
         main {
             flex-grow: 1;
@@ -56,12 +58,29 @@
         .tab {
             display: none;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
             margin-bottom: 30px;
         }
         .tab.active {
             display: block;
+        }
+        #server-info {
+            text-align: left;
+            margin: 20px auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+        #server-info h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        #server-info p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #fff;
         }
         button {
             padding: 12px 25px;
@@ -71,7 +90,7 @@
             cursor: pointer;
             color: #fff;
             font-size: 18px;
-            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            background: linear-gradient(90deg, #FF7E5F, #feb47b);
             transition: transform 0.2s ease;
         }
         button:hover {
@@ -89,28 +108,12 @@
             margin-top: 20px;
             width: 100%;
             height: 500px;
-            background-color: #2c3e50;
+            background-color: rgba(0, 0, 0, 0.5);
             position: relative;
             border-radius: 15px;
             overflow: hidden;
         }
-        .grid-coordinates {
-            position: absolute;
-            color: #fff;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .grid-coordinates.x {
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        .grid-coordinates.y {
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-        .map-placeholder {
+        #map-display img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -118,8 +121,8 @@
         footer {
             margin-top: 30px;
             padding: 15px;
-            background-color: #2c3e50;
-            color: #ecf0f1;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
             width: 100%;
             text-align: center;
         }
@@ -140,7 +143,7 @@
         <!-- Home Tab -->
         <div id="home" class="tab active">
             <h1>Welcome to OpStoppa 3X Rust Server</h1>
-            <p>Experience the ultimate Rust adventure!</p>
+            <p>Experience the ultimate Rust adventure with fast-paced action and a vibrant community!</p>
         </div>
 
         <!-- Map Tab -->
@@ -152,20 +155,30 @@
                 <button type="button" onclick="generateMap()">Generate Map</button>
             </form>
             <div id="map-display">
-                <img id="map-preview" class="map-placeholder" src="" alt="Map will be displayed here" />
+                <img id="map-preview" src="" alt="Generated Map Preview">
             </div>
         </div>
 
         <!-- Server Info Tab -->
         <div id="info" class="tab">
-            <h2>Server Info</h2>
-            <p>Details about the server coming soon!</p>
+            <div id="server-info">
+                <h2>Server Name:</h2>
+                <p>OpStoppa 3X Vanilla+</p>
+                <h2>Player Count:</h2>
+                <p>85/100</p>
+                <h2>Server Uptime:</h2>
+                <p>99.99%</p>
+                <h2>Wipe Schedule:</h2>
+                <p>Every Thursday at 3 PM GMT</p>
+                <h2>Key Features:</h2>
+                <p>Fast-paced gameplay, custom events, active admins, and more!</p>
+            </div>
         </div>
 
         <!-- About Tab -->
         <div id="about" class="tab">
             <h2>About Us</h2>
-            <p>Learn more about our community and Rust server.</p>
+            <p>Join the ultimate Rust experience with OpStoppa! We pride ourselves on providing a fun and fair environment for all players. Connect now and start your journey!</p>
         </div>
     </main>
 
@@ -189,7 +202,7 @@
             }
 
             const mapPreview = document.getElementById('map-preview');
-            mapPreview.src = `./images/generated_map_placeholder.png`; // Replace with your generated map URL
+            mapPreview.src = `./images/generated_map_${seed}_${size}.png`; // Replace with actual generated map logic
             mapPreview.alt = `Generated Map for Seed ${seed} and Size ${size}`;
         }
     </script>
