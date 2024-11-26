@@ -1,145 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OpStoppa Rust Server</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: url('./images/download.png') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-    }
-
-    header {
-      text-align: center;
-      padding: 10px 0;
-      background-color: rgba(0, 0, 0, 0.7);
-    }
-
-    header h1 {
-      margin: 0;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      background-color: rgba(0, 0, 0, 0.9);
-      padding: 10px;
-    }
-
-    nav a {
-      margin: 0 10px;
-      padding: 10px 15px;
-      text-decoration: none;
-      color: #fff;
-      background: linear-gradient(90deg, #ff4500, #ff9900);
-      border-radius: 5px;
-      transition: 0.3s ease;
-    }
-
-    nav a:hover {
-      background: linear-gradient(90deg, #ff9900, #ff4500);
-    }
-
-    .content {
-      padding: 20px;
-      text-align: center;
-    }
-
-    .map-tool {
-      background-color: rgba(0, 0, 0, 0.8);
-      padding: 20px;
-      border-radius: 10px;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .map-tool input,
-    .map-tool button {
-      margin: 10px 0;
-      padding: 10px;
-      width: 100%;
-      border: none;
-      border-radius: 5px;
-    }
-
-    .map-tool button {
-      background: linear-gradient(90deg, #ff4500, #ff9900);
-      color: #fff;
-      cursor: pointer;
-    }
-
-    .map-tool button:hover {
-      background: linear-gradient(90deg, #ff9900, #ff4500);
-    }
-
-    .map-display img {
-      width: 100%;
-      max-width: 500px;
-      border-radius: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpStoppa 3X Rust Server</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1a1a1a, #343a40);
+            color: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        header {
+            width: 100%;
+            padding: 10px 20px;
+            background-color: #212529;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
+        header img {
+            height: 50px;
+        }
+        nav {
+            display: flex;
+            gap: 15px;
+        }
+        nav a {
+            text-decoration: none;
+            color: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        nav a:hover {
+            background: #495057;
+        }
+        main {
+            margin-top: 20px;
+            width: 90%;
+            max-width: 1200px;
+            text-align: center;
+        }
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #fff;
+            font-size: 16px;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .generate-button {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #212529;
+            color: #f8f9fa;
+            width: 100%;
+            text-align: center;
+        }
+        #map-preview {
+            margin-top: 20px;
+            max-width: 100%;
+            max-height: 500px;
+            border: 2px solid #495057;
+            border-radius: 10px;
+        }
+        #map-tool input {
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #495057;
+            border-radius: 5px;
+            width: 200px;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>OpStoppa Rust Server</h1>
-  </header>
+    <header>
+        <img src="./images/OpStoppa Rust server header image with 3X and a small map at the bottom sized at 1800.png" alt="Logo">
+        <nav>
+            <a href="#" onclick="showTab('home')">Home</a>
+            <a href="#" onclick="showTab('map')">Rust Map</a>
+            <a href="#" onclick="showTab('about')">About</a>
+        </nav>
+    </header>
 
-  <nav>
-    <a href="#home">Home</a>
-    <a href="#map-tool">Generate Map</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <main>
+        <!-- Home Tab -->
+        <div id="home" class="tab active">
+            <h1>Welcome to OpStoppa 3X Rust Server</h1>
+            <p>Experience the ultimate Rust gameplay on our custom server!</p>
+        </div>
 
-  <div id="home" class="content">
-    <h2>Welcome to the OpStoppa Rust Server</h2>
-    <p>Your ultimate Rust gaming experience starts here!</p>
-  </div>
+        <!-- Map Tab -->
+        <div id="map" class="tab">
+            <h2>Rust Map Generator</h2>
+            <form id="map-tool">
+                <input type="number" id="map-seed" placeholder="Enter Seed" required>
+                <input type="number" id="map-size" placeholder="Enter Map Size" required>
+                <button type="button" class="generate-button" onclick="generateMap()">Generate Map</button>
+            </form>
+            <img id="map-preview" alt="Generated Map Preview">
+        </div>
 
-  <div id="map-tool" class="content">
-    <h2>Generate Your Rust Map</h2>
-    <div class="map-tool">
-      <input id="seed" type="text" placeholder="Enter map seed">
-      <input id="size" type="number" placeholder="Enter map size (e.g., 1800)">
-      <button onclick="generateMap()">Generate Map</button>
-    </div>
-    <div class="map-display" id="map-display"></div>
-  </div>
+        <!-- About Tab -->
+        <div id="about" class="tab">
+            <h2>About Us</h2>
+            <p>OpStoppa 3X Rust Server is dedicated to providing the best gaming experience for all players.</p>
+        </div>
+    </main>
 
-  <div id="about" class="content">
-    <h2>About the Server</h2>
-    <p>Explore a custom Rust world with exciting features and a vibrant community!</p>
-  </div>
+    <footer>
+        &copy; 2024 OpStoppa Rust Server. All Rights Reserved.
+    </footer>
 
-  <div id="contact" class="content">
-    <h2>Contact Us</h2>
-    <p>Have questions? Reach out to us through Discord!</p>
-  </div>
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
 
-  <script>
-    function generateMap() {
-      const seed = document.getElementById('seed').value;
-      const size = document.getElementById('size').value;
+        function generateMap() {
+            const seed = document.getElementById('map-seed').value;
+            const size = document.getElementById('map-size').value;
+            if (!seed || !size) {
+                alert('Please enter both a seed and map size.');
+                return;
+            }
 
-      if (!seed || !size) {
-        alert('Please enter both a seed and a map size.');
-        return;
-      }
-
-      const mapUrl = `https://rustmaps.com/map/${size}_${seed}`;
-      const mapDisplay = document.getElementById('map-display');
-
-      mapDisplay.innerHTML = `
-        <h3>Generated Map</h3>
-        <a href="${mapUrl}" target="_blank">
-          <img src="${mapUrl}" alt="Rust Map ${size} ${seed}">
-        </a>
-      `;
-    }
-  </script>
+            // Fake URL for demonstration. Replace with actual backend API endpoint for map generation.
+            const mapUrl = `https://your-backend-url.com/generate-map?seed=${seed}&size=${size}`;
+            document.getElementById('map-preview').src = mapUrl;
+        }
+    </script>
 </body>
 </html>
